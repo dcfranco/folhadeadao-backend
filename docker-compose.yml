@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  server:
+    container_name: NODEJS_SERVER_MEDIUM
+    build: '.'
+    volumes:
+      - ./:/app
+      - ./node_modules:/app/node_modules
+    environment:
+      NODE_ENV: development
+      DEBUG: 'loopback:*'
+      AUTOMIGRAT: 'yes'
+    depends_on:
+      - migration
+    links:
+      - db
+    ports:
+      - '5000:5000'
+      - '9229:9229'
+    command:
+      - node
+      - '--inspect-brk=0.0.0.0'
+      - '.'
+    networks:
+      - salesfunnelbackend-network
+
+  migration:
+    container_name: NODEJS_MIGRAGE_MEDIUM
+    build: '.'
+    volumes:
+      - ./:/app
+      - ./node_modules:/app/node_modules
+    depends_on:
+      - db
+    links:
+      - db
+    command:
+      - node
+      - './dist/migrate'
+    networks:
+      - salesfunnelbackend-network
+
+  db:
+    image: 'postgres'
+    container_name: POSTGRESSS_MEDIUM
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: 'folhadeadao'
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-app:/var/lib/postgresql/data
+    networks:
+      - salesfunnelbackend-network
+
+volumes:
+  db-app:
+    driver: local
+
+networks:
+  salesfunnelbackend-network:
+    driver: bridge
