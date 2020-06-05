@@ -3,6 +3,7 @@ version: '3'
 services:
   server:
     container_name: NODEJS_SERVER_MEDIUM
+    image: folhadeadao/salesfunnelbackend:prod
     build: '.'
     volumes:
       - ./:/app
@@ -20,13 +21,12 @@ services:
       - '9229:9229'
     command:
       - node
-      - '--inspect-brk=0.0.0.0'
       - '.'
     networks:
       - salesfunnelbackend-network
 
   migration:
-    container_name: NODEJS_MIGRAGE_MEDIUM
+    container_name: NODEJS_MIGRATE_MEDIUM
     build: '.'
     volumes:
       - ./:/app
