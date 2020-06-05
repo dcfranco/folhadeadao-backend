@@ -1,11 +1,11 @@
 {
   "name": "db",
   "connector": "postgresql",
-  "url": "postgresql://postgres:postgres@db/folhadeadao",
-  "host": "db",
+  "url": "postgres://ztfgrngfnzhaeb:0170dcbd7c8db7bee0212fc138f5027506ac36b5d0a439b8e531ac275a105aed@ec2-34-198-243-120.compute-1.amazonaws.com:5432/d16hqc5g008idb",
+  "host": "ec2-34-198-243-120.compute-1.amazonaws.com",
   "port": 5432,
-  "user": "postgres",
-  "password": "postgres",
-  "database": "folhadeadao",
+  "user": "ztfgrngfnzhaeb",
+  "password": "0170dcbd7c8db7bee0212fc138f5027506ac36b5d0a439b8e531ac275a105aed",
+  "database": "d16hqc5g008idb",
   "debug": true
 }
