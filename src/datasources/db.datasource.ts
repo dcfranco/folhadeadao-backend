@@ -2,10 +2,34 @@ import {
   inject,
   lifeCycleObserver,
   LifeCycleObserver,
-  ValueOrPromise,
+  ValueOrPromise
 } from '@loopback/core';
 import {juggler} from '@loopback/repository';
-import config from './db.datasource.config.json';
+
+// const config = {
+//   name: 'db',
+//   connector: 'postgresql',
+//   url:
+//     'postgres://ztfgrngfnzhaeb:0170dcbd7c8db7bee0212fc138f5027506ac36b5d0a439b8e531ac275a105aed@ec2-34-198-243-120.compute-1.amazonaws.com:5432/d16hqc5g008idb',
+//   host: 'ec2-34-198-243-120.compute-1.amazonaws.com',
+//   port: 5432,
+//   user: 'ztfgrngfnzhaeb',
+//   password: '0170dcbd7c8db7bee0212fc138f5027506ac36b5d0a439b8e531ac275a105aed',
+//   database: 'd16hqc5g008idb',
+//   debug: true,
+// };
+
+const configDev = {
+  name: 'db',
+  connector: 'postgresql',
+  url: 'postgres://postgres:daniel@localhost:5432/folhadeadao',
+  host: 'localhost',
+  port: 5432,
+  user: 'postgres',
+  password: 'daniel',
+  database: 'folhadeadao',
+  debug: true,
+};
 
 @lifeCycleObserver('datasource')
 export class DbDataSource extends juggler.DataSource
@@ -14,22 +38,13 @@ export class DbDataSource extends juggler.DataSource
 
   constructor(
     @inject('datasources.config.db', {optional: true})
-    dsConfig: object = config,
+    dsConfig: object = configDev,
   ) {
     super(dsConfig);
   }
 
-  /**
-   * Start the datasource when application is started
-   */
-  start(): ValueOrPromise<void> {
-    // Add your logic here to be invoked when the application is started
-  }
+  start(): ValueOrPromise<void> {}
 
-  /**
-   * Disconnect the datasource when application is stopped. This allows the
-   * application to be shut down gracefully.
-   */
   stop(): ValueOrPromise<void> {
     return super.disconnect();
   }

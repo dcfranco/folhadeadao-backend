@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
+import {Question} from './question.model';
 
 @model()
 export class Funnel extends Entity {
@@ -11,8 +12,21 @@ export class Funnel extends Entity {
 
   @property({
     type: 'string',
+    required: true,
   })
-  description?: string;
+  name: string;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  steps: number;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  description: string;
 
   @property({
     type: 'date',
@@ -21,16 +35,13 @@ export class Funnel extends Entity {
   createdAt: string;
 
   @property({
-    type: 'date',
-  })
-  updatedAt: string;
-
-  @property({
     type: 'boolean',
     required: true,
-    default: true,
   })
-  active: boolean;
+  isActive: boolean;
+
+  @hasMany(() => Question)
+  questions: Question[];
 
   constructor(data?: Partial<Funnel>) {
     super(data);

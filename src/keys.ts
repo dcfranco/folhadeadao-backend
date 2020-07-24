@@ -7,6 +7,7 @@ import {TokenService, UserService} from '@loopback/authentication';
 import {BindingKey} from '@loopback/context';
 import {User} from './models';
 import {Credentials} from './repositories';
+import {FileUploadHandler} from './types';
 
 export namespace TokenServiceConstants {
   export const TOKEN_SECRET_VALUE = 'EoRaClSVaLuE3';
@@ -29,6 +30,13 @@ export namespace TokenServiceBindings {
   );
   export const TOKEN_CLIENT_EXPIRES_IN = BindingKey.create<string>(
     'authentication.jwt.expires.in.seconds',
+  );
+}
+
+export namespace UploaderServiceBindings {
+  export const STORAGE_DIRECTORY = BindingKey.create<string>('storage.directory');
+  export const FILE_UPLOAD_SERVICE = BindingKey.create<FileUploadHandler>(
+    'services.FileUpload',
   );
 }
 

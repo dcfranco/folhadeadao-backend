@@ -3,7 +3,7 @@ version: '3'
 services:
   server:
     container_name: NODEJS_SERVER_MEDIUM
-    image: folhadeadao/salesfunnelbackend:prod
+    image: folhadeadao/backend
     build: '.'
     volumes:
       - ./:/app
@@ -12,6 +12,7 @@ services:
       NODE_ENV: development
       DEBUG: 'loopback:*'
       AUTOMIGRAT: 'yes'
+      DB: db
     depends_on:
       - migration
     links:
@@ -21,6 +22,7 @@ services:
       - '9229:9229'
     command:
       - node
+      - '--inspect-brk=0.0.0.0'
       - '.'
     networks:
       - salesfunnelbackend-network

@@ -8,6 +8,7 @@ import {inject} from '@loopback/context';
 import {
   FindRoute,
   InvokeMethod,
+  InvokeMiddleware,
   ParseParams,
   Reject,
   RequestContext,
@@ -19,6 +20,9 @@ import {
 const SequenceActions = RestBindings.SequenceActions;
 
 export class MySequence implements SequenceHandler {
+  @inject(SequenceActions.INVOKE_MIDDLEWARE, {optional: true})
+  protected invokeMiddleware: InvokeMiddleware = () => false;
+
   constructor(
     @inject(SequenceActions.FIND_ROUTE) protected findRoute: FindRoute,
     @inject(SequenceActions.PARSE_PARAMS) protected parseParams: ParseParams,
@@ -32,9 +36,15 @@ export class MySequence implements SequenceHandler {
   async handle(context: RequestContext) {
     try {
       const {request, response} = context;
-      const route = this.findRoute(request);
 
-      await this.authenticateRequest(request);
+      const finished = await this.invokeMiddleware(context);
+      console.log(finished);
+      if (finished) {
+        // The response been produced by the middleware chain
+        return;
+      }
+
+      const route = this.findRoute(request);
 
       const args = await this.parseParams(request, route);
       const result = await this.invoke(route, args);

@@ -35,6 +35,7 @@ export class TokenService implements TokenServiceBase {
         {[securityId]: '', name: ''},
         {
           [securityId]: decodedToken.id,
+          email: decodedToken.email,
           name: decodedToken.name,
           id: decodedToken.id,
         },

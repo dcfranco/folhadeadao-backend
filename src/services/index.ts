@@ -4,4 +4,5 @@
 // License text available at https://opensource.org/licenses/MIT
 
 export * from './token.service';
+export * from './uploader.service';
 export * from './user.service';

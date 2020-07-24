@@ -4,7 +4,7 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {HttpErrors} from '@loopback/rest';
-import {Credentials} from '../repositories/user.repository';
+import {Credentials} from '../repositories';
 
 export function validateCredentials(credentials: Credentials) {
   // Validate Password Length

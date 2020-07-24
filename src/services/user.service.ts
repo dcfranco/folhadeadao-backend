@@ -6,8 +6,8 @@ import {UserService as UserServiceBase} from '@loopback/authentication';
 import {repository} from '@loopback/repository';
 import {HttpErrors} from '@loopback/rest';
 import {securityId, UserProfile} from '@loopback/security';
-import {User} from '../models/user.model';
-import {Credentials, UserRepository} from '../repositories/user.repository';
+import {User} from '../models/user/user.model';
+import {Credentials, UserRepository} from '../repositories';
 
 export class UserService implements UserServiceBase<User, Credentials> {
   constructor(
@@ -18,7 +18,7 @@ export class UserService implements UserServiceBase<User, Credentials> {
     const invalidCredentialsError = 'Invalid username or password.';
 
     const foundUser = await this.userRepository.findOne({
-      where: {email: credentials.email},
+      where: {username: credentials.username},
     });
     if (!foundUser) {
       throw new HttpErrors.Unauthorized(invalidCredentialsError);

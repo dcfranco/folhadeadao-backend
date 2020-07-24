@@ -1,7 +1,14 @@
-export * from './customer.repository';
-export * from './funnel-token.repository';
+export * from './category.repository';
+export * from './domain-type.repository';
+export * from './domain.repository';
 export * from './funnel.repository';
-export * from './seller.repository';
-export * from './user-credentials.repository';
-export * from './user.repository';
-export * from './funnel-answers.repository';
+export * from './product-image.repository';
+export * from './product.repository';
+export * from './question.repository';
+export * from './type.repository';
+export * from './user/user-admin.repository';
+export * from './user/user-client.repository';
+export * from './user/user-credentials.repository';
+export * from './user/user.repository';
+
+
